@@ -5,8 +5,8 @@
 <!-- tit new -->
 <ins class="adsbygoogle"
      style="display:inline-block;width:336px;height:280px"
-     data-ad-client="ca-pub-7156740350736326"
-     data-ad-slot="7383063291"></ins>
+     data-ad-client="ca-pub-xxxxxxxxxxxxxxxxx"
+     data-ad-slot="xxxxxxxxxxxxxx"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script></td>
@@ -14,7 +14,7 @@
 <!-- tit new -->
 <ins class="adsbygoogle"
      style="display:inline-block;width:336px;height:280px"
-     data-ad-client="ca-pub-7156740350736326"
+     data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
      data-ad-slot="7383063291"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
@@ -70,8 +70,8 @@ session_start();
 date_default_timezone_set('Asia/Kolkata');
 require_once __DIR__ . '/Facebook/autoload.php';
 $fb = new Facebook\Facebook([
-'app_id' => '723618091102596',
-'app_secret' => '16c3cab2ca626061e4a336e2d183f578',
+'app_id' => 'XXXXXXXXXXXXXXXXXXXXXXXXX',
+'app_secret' => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
 'default_graph_version' => 'v2.5',
 ]);
 $helper = $fb->getRedirectLoginHelper();
@@ -160,9 +160,9 @@ $url2=".jpg";
 $url3= $url1.$profile['id'].$url2;
 
 $servername = "localhost:3306";
-$username = "bn_amiserious";
-$password = "3ba3d67f1b";
-$dbname = "bitnami_amiserious";
+$username = "xxxxxxxxxxxxxx";
+$password = "xxxxxxxxxxx";
+$dbname = "xxxxxxxxxxxxxxxx";
 
 
 // Create connection
