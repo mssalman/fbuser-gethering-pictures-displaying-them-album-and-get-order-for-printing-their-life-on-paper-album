@@ -1,0 +1,300 @@
+<table>
+<tbody>
+<tr>
+<td width="213"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- tit new -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7156740350736326"
+     data-ad-slot="7383063291"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></td>
+<td width="213"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- tit new -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7156740350736326"
+     data-ad-slot="7383063291"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></td>
+<td width="213"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- tit new -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7156740350736326"
+     data-ad-slot="7383063291"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></td>
+</tr>
+</tbody>
+</table>
+<head>
+<style>
+.button{
+ text-decoration:none; 
+ text-align:center; 
+ padding:11px 32px; 
+ border:solid 1px #004F72; 
+ -webkit-border-radius:4px;
+ -moz-border-radius:4px; 
+ border-radius: 4px; 
+ font:18px Arial, Helvetica, sans-serif; 
+ font-weight:bold; 
+ color:#E5FFFF; 
+ background-color:#3BA4C7; 
+ background-image: -moz-linear-gradient(top, #3BA4C7 0%, #1982A5 100%); 
+ background-image: -webkit-linear-gradient(top, #3BA4C7 0%, #1982A5 100%); 
+ background-image: -o-linear-gradient(top, #3BA4C7 0%, #1982A5 100%); 
+ background-image: -ms-linear-gradient(top, #3BA4C7 0% ,#1982A5 100%); 
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1982A5', endColorstr='#1982A5',GradientType=0 ); 
+ background-image: linear-gradient(top, #3BA4C7 0% ,#1982A5 100%);   
+ -webkit-box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff; 
+ -moz-box-shadow: 0px 0px 2px #bababa,  inset 0px 0px 1px #ffffff;  
+ box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;  
+  
+  }
+</style>
+</head>
+
+<body>
+
+
+
+
+<?php
+session_start();
+
+date_default_timezone_set('Asia/Kolkata');
+require_once __DIR__ . '/Facebook/autoload.php';
+$fb = new Facebook\Facebook([
+'app_id' => '723618091102596',
+'app_secret' => '16c3cab2ca626061e4a336e2d183f578',
+'default_graph_version' => 'v2.5',
+]);
+$helper = $fb->getRedirectLoginHelper();
+$permissions = ['email','publish_actions','user_friends','read_custom_friendlists']; // optional
+
+try {
+if (isset($_SESSION['facebook_access_token'])) {
+$accessToken = $_SESSION['facebook_access_token'];
+} else {
+$accessToken = $helper->getAccessToken();
+}
+} catch(Facebook\Exceptions\FacebookResponseException $e) {
+// When Graph returns an error
+echo 'Graph returned an error: ' . $e->getMessage();
+exit;
+} catch(Facebook\Exceptions\FacebookSDKException $e) {
+// When validation fails or other local issues
+echo 'Facebook SDK returned an error: ' . $e->getMessage();
+exit;
+}
+if (isset($accessToken)) {
+if (isset($_SESSION['facebook_access_token'])) {
+$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+} else {
+// getting short-lived access token
+$_SESSION['facebook_access_token'] = (string) $accessToken;
+// OAuth 2.0 client handler
+$oAuth2Client = $fb->getOAuth2Client();
+// Exchanges a short-lived access token for a long-lived one
+$longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($_SESSION['facebook_access_token']);
+$_SESSION['facebook_access_token'] = (string) $longLivedAccessToken;
+// setting default access token to be used in script
+$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+}
+
+
+// getting profile picture of the user
+	try {
+		$requestPicture = $fb->get('/me/picture?redirect=false&height=300'); //getting user picture
+		$requestProfile = $fb->get('/me?fields=first_name'); // getting basic info
+		$picture = $requestPicture->getGraphUser();
+		$profile = $requestProfile->getGraphUser();
+
+$name = $requestProfile->getGraphNode()->asArray();
+
+
+	} catch(Facebook\Exceptions\FacebookResponseException $e) {
+		// When Graph returns an error
+		echo 'Graph returned an error: ' . $e->getMessage();
+		exit;
+	} catch(Facebook\Exceptions\FacebookSDKException $e) {
+		// When validation fails or other local issues
+		echo 'Facebook SDK returned an error: ' . $e->getMessage();
+		exit;
+	}
+	
+	
+
+
+	// saving picture
+	$img = __DIR__.'/'.$profile['id'].'.jpg';
+
+
+
+
+$filenames = $picture['url'];
+
+
+// Get new dimensions
+list($width, $height) = getimagesize($filenames);
+$new_width = "230";
+$new_height = "230";
+
+// Resample
+$image_ps = imagecreatetruecolor($new_width, $new_height);
+$images = imagecreatefromjpeg($filenames);
+imagecopyresampled($image_ps, $images, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+
+$img = __DIR__.'/watchedby230230'.$profile['id'].'.jpg';
+imagejpeg($image_ps, $img);
+
+$url1="http://amiserious.bitnamiapp.com/watchedby230230";
+$url2=".jpg";
+
+$url3= $url1.$profile['id'].$url2;
+
+$servername = "localhost:3306";
+$username = "bn_amiserious";
+$password = "3ba3d67f1b";
+$dbname = "bitnami_amiserious";
+
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+$sql = "SELECT `Actor Name`,`Image link`,`Actor` FROM `table 12`
+ORDER BY RAND()
+LIMIT 1";
+
+
+$result = $conn->query($sql);
+
+$row = $result->fetch_row();
+
+
+$time = date("l h:i:sa", $d);
+
+$filename = $row[1];
+
+
+// Get new dimensions
+list($width, $height) = getimagesize($filename);
+$new_width = "430";
+$new_height = "215";
+
+// Resample
+$image_p = imagecreatetruecolor($new_width, $new_height);
+$image = imagecreatefromjpeg($filename);
+imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+// Output
+$profiles['id']=$row[0];
+
+$img111 = __DIR__.'/'.$profiles['id'].'.jpg';
+imagejpeg($image_p, $img111);
+
+$url1111="http://amiserious.bitnamiapp.com/";
+$url2222=".jpg";
+
+$url3333= $url1111.$profiles['id'].$url2222;
+
+
+$image1Url = "http://amiserious.bitnamiapp.com/wacthedby.jpg";
+$image2Url = $url3;
+$image3Url = $url3333;
+$image1 = imageCreateFromjpeg($image1Url);
+$image2 = imageCreateFromjpeg($image2Url);
+$image3 = imageCreateFromjpeg($image3Url);
+$cor = imagecolorallocate($rImg, 0, 0, 0);
+
+
+
+
+
+
+$txt1=$row[2];
+$txt2=$name[first_name];
+
+$txt3= ", ";
+
+$txt4= " was watching your facebook profile today!";
+ 
+$text = $name[first_name].$txt3.$txt1.$txt4;
+
+imageCopyMerge($image1, $image2, 70, 190, 0, 0, 230, 230, 100);
+
+imageCopyMerge($image1, $image3, 463, 220, 0, 0, 430, 215, 100);
+
+imagestring($image1,150,280,80,$text,$cor);
+
+$newprofileid= $profiles['id'].$profile['id'];
+
+
+$img = __DIR__.'/watchedbycelebrity'.$newprofileid.'.jpg';
+imagejpeg($image_ps, $img);
+
+$url1="http://amiserious.bitnamiapp.com/watchedbycelebrity";
+$url2=".jpg";
+
+$url3= $url1.$newprofileid.$url2;
+
+
+
+Imagejpeg($image1,$img);
+
+echo "<img src='$url3'/>";
+
+
+
+
+
+echo '</br></br><a href="https://www.facebook.com/dialog/feed?app_id=723618091102596&link=amiserious.bitnamiapp.com%2Ffb.php&picture=' . $url3 . '&name=Which%20Celebrity%20viewed%20your%20Facebook%20profile%20today!&caption=%20&description=amiserious.bitnamiapp.com&redirect_uri=http%3A%2F%2Fwww.facebook.com%2F" class="button"/>Share on Facebook to let your friends know how popular you are!</a></br></br>';
+
+$adh= '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- amiserious hor -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-7156740350736326"
+     data-ad-slot="1997933698"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>';
+echo $adh// Now you can redirect to another page and use the access token from $_SESSION['facebook_access_token']
+} else {
+
+
+
+
+// replace your website URL same as added in the developers.facebook.com/apps e.g. if you used http instead of https and you used non-www version or www version of your website then you must add the same here
+$permission= ['email','publish_actions','user_friends','read_custom_friendlists'];
+$loginUrl = $helper->getLoginUrl('http://amiserious.bitnamiapp.com/fb.php', $permissions);
+
+
+echo '</br></br><a href="' . $loginUrl . '" class="button"/>Log in to Facebook to find out which celebrity viewed your profile!</a></br></br>';
+
+echo "<img src='http://amiserious.bitnamiapp.com/wacthedbyd.jpg'/>";
+
+
+$adh= '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- amiserious hor -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-7156740350736326"
+     data-ad-slot="1997933698"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>';
+echo $adh;
+
+
+}
+
+?>
+</body>
+</html>
